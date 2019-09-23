@@ -1,0 +1,34 @@
+body {
+	box-sizing: border-box;
+	font-family: "Nunito", sans-serif;
+	color: #fff;
+	width: 100%;
+    text-align: center;
+    background: url("../images/space-background.jpg"), #1d1f20;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: cover;
+    overflow: hidden;
+}
+
+.gameHeader {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	align-items: center;
+	padding: 20px;
+}
+
+#gameTitle { 
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 50%;
+    font-size: 2em;
+    font-weight: bold;
+    padding: 40px 10px;
+    line-height: 1.5;
+    border: 3px solid;
+    border-radius: 3px;
+}
