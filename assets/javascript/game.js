@@ -1,9 +1,16 @@
 var wordList = ["Earth", "Galaxy", "Jupiter", "Mars"];
+var usedWords = [];
 
 // Function will return random word from wordList array
 function randomWord() {
-	var word = wordList[Math.floor(Math.random() * wordList.length)];
-	return word.toLowerCase();
+	var getRandomWord = "";
+	do {
+		getRandomWord = wordList[Math.floor(Math.random() * wordList.length)];
+	} while (usedWords.indexOf(getRandomWord) != -1);
+
+	usedWords.push(getRandomWord);
+	if (usedWords.length == wordList.length) usedWords = [];
+	return getRandomWord.toLowerCase();
 }
 
 function startGame() {
