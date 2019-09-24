@@ -18,12 +18,13 @@ function startGame() {
 	for (var i = 0; i < guessWord.length; i++) {
 		var character = document.createElement("div");
 		character.textContent = "_";
-		//div = document.getElementById("currentWord");
 		currentWord.appendChild(character);
 	}
 
 	var underscoreCharacter = document.querySelectorAll("#currentWord div");
 	var userGuessLetters = document.getElementById("userGuessLetters");
+	var numberOfGuesses = document.getElementById("numberOfGuesses");
+	var guessesCounter = 12;
 
 	document.onkeyup = function(event) {
 		var letter = event.key;
@@ -43,8 +44,17 @@ function startGame() {
 				var failLetter = document.createElement("div");
 				failLetter.textContent = event.key;
 				userGuessLetters.appendChild(failLetter);
+				guessesCounter--;
+				numberOfGuesses.textContent = guessesCounter;
 			}
-		} 
+		}
+
+		if (guessesCounter == 0) {
+			console.log("You Lose. The guess word is: " + guessWord); //Temp console message
+			numberOfGuesses.innerHTML = "12";
+			userGuessLetters.innerHTML = "";
+			startGame();
+		}
 	};
 }
 
