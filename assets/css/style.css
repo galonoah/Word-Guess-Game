@@ -40,7 +40,7 @@ body {
     border-radius: 5px;
 }
 
-.guessWord {
+.guessWord, .guessLetters {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -48,7 +48,7 @@ body {
     margin-bottom: 20px;
 }
 
-#currentWord {
+#currentWord, .userGuessLetters  {
     display: flex;
     justify-content: center;
     font-size: 2em;
@@ -59,6 +59,20 @@ body {
     color: cyan;
 }
 
-#currentWord > * {
+#currentWord > * , .userGuessLetters > * {
     margin-right: 10px;
+}
+
+.userGuessLetters {
+    color: #ff0080;
+    font-size: 1.5em;
+}
+
+.userScore {
+    width: 300px;
+    margin: 0 auto;
+    line-height: 2;
+    border: 1px dashed #ff0080;
+    border-radius: 10px;
+    padding: 5px;
 }
