@@ -25,6 +25,7 @@ function startGame() {
 	var userGuessLetters = document.getElementById("userGuessLetters");
 	var numberOfGuesses = document.getElementById("numberOfGuesses");
 	var guessesCounter = 12;
+	var correctWord = [];
 
 	document.onkeyup = function(event) {
 		var letter = event.key;
@@ -38,6 +39,7 @@ function startGame() {
 				for (let i = 0; i < guessWord.length; i++) {
 					if (guessWord[i] == letter) {
 						underscoreCharacter[i].textContent = letter;
+						correctWord[i] = letter; //store letters to array for comparison with guessWord
 					}
 				}
 			} else {
@@ -47,6 +49,12 @@ function startGame() {
 				guessesCounter--;
 				numberOfGuesses.textContent = guessesCounter;
 			}
+		}
+
+		if (correctWord.join("") == guessWord) {
+			console.log("You Win"); //Temp console message
+			userGuessLetters.innerHTML = "";
+			startGame();
 		}
 
 		if (guessesCounter == 0) {
