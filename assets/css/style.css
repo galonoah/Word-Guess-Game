@@ -10,6 +10,10 @@ body {
 	overflow: hidden;
 }
 
+.transitionBackground {
+	transition: background 2s ease-out;
+}
+
 .gameHeader {
 	display: flex;
 	flex-direction: column;

@@ -1,4 +1,14 @@
-var wordList = ["Earth", "Galaxy", "Jupiter", "Mars", "astronaut", "comet", "moon", "planets", "rocket"];
+var wordList = [
+	"Earth",
+	"Galaxy",
+	"Jupiter",
+	"Mars",
+	"astronaut",
+	"comet",
+	"moon",
+	"planets",
+	"rocket"
+];
 var usedWords = [];
 
 // Function will return random word from wordList array
@@ -49,7 +59,7 @@ function startGame() {
 						underscoreCharacter[i].textContent = letter;
 
 						//store letters to array for comparison with guessWord
-						correctWord[i] = letter; 
+						correctWord[i] = letter;
 					}
 				}
 			} else {
@@ -65,8 +75,14 @@ function startGame() {
 			console.log("You Win"); //Temp console message
 			userGuessLetters.innerHTML = "";
 
+			//Add transition effect
+			document.body.classList.add("transitionBackground");
+
 			//Change background image based on the guessWord
-			document.body.style.background = "url('./assets/images/" + guessWord + ".jpg') #1d1f20 no-repeat center center fixed"; 
+			document.body.style.background =
+				"url('./assets/images/" +
+				guessWord +
+				".jpg') #1d1f20 no-repeat center center fixed";
 			document.body.style.backgroundSize = "cover";
 
 			startGame();
