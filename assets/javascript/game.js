@@ -107,6 +107,9 @@ function checkCorrectWord(guessWord, correctWord) {
 		numberOfGuesses.innerHTML = "12";
 		userGuessLetters.innerHTML = "";
 		losesCounter.textContent = ++loses;
+		for (var i = 0; i < guessWord.length; i++) {
+			document.querySelectorAll("#currentWord div")[i].textContent = guessWord[i];
+		}
 		restartGame();
 	}
 }
@@ -134,9 +137,9 @@ function startGame() {
 }
 
 function restartGame() {
-	document.onkeyup = function(){
+	document.onkeyup = function() {
 		startGame();
-	}
+	};
 }
 
 restartGame();
