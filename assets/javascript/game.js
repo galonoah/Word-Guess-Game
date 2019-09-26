@@ -24,20 +24,24 @@ function randomWord() {
 	return getRandomWord.toLowerCase();
 }
 
+// Loop will run as many times as the guessWord length and each time
+// will create a Div element with an underscore character and then
+// append it to the HTML tag with id = currentWord
+function createLowLines (guessWord) {
+	for (var i = 0; i < guessWord.length; i++) {
+		var lowLine = document.createElement("div");
+		lowLine.textContent = "_";
+		currentWord.appendChild(lowLine);
+	}
+}
+
 function startGame() {
 	var guessWord = randomWord();
 	console.log(guessWord);
 	var currentWord = document.getElementById("currentWord");
 	currentWord.innerHTML = ""; //Removes previous guess word
 
-	// Loop will run as many times as the guessWord length and each time
-	// will create a Div element with an underscore character and then
-	// append it to the HTML tag with id = currentWord
-	for (var i = 0; i < guessWord.length; i++) {
-		var character = document.createElement("div");
-		character.textContent = "_";
-		currentWord.appendChild(character);
-	}
+	createLowLines(guessWord);
 
 	var underscoreCharacter = document.querySelectorAll("#currentWord div");
 	var userGuessLetters = document.getElementById("userGuessLetters");
