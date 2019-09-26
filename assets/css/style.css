@@ -14,6 +14,15 @@ body {
 	transition: background 2s ease-out;
 }
 
+.container {
+	width: 425px;
+	height: 600px;
+	margin: 20px auto;
+	border: 3px solid white;
+	border-radius: 10px;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
 .gameHeader {
 	display: flex;
 	flex-direction: column;
@@ -26,7 +35,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 50%;
+	/* width: 50%; */
 	font-size: 2em;
 	font-weight: bold;
 	padding: 40px 10px;
