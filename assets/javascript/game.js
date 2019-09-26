@@ -59,9 +59,16 @@ function checkLetters(guessWord, character, correctWord) {
 					underscoreCharacter[i].textContent = character;
 					//store keypress letter to array for comparison with guessWord
 					correctWord[i] = character;
+					var correctSound = document.getElementById("correctSound");
+					correctSound.currentTime = 0;
+					correctSound.play();
 				}
 			}
 		} else {
+			var wrongSound = document.getElementById("wrongSound");
+			wrongSound.currentTime = 0;
+			wrongSound.play();
+
 			if (!usedCharacters.includes(character)) {
 				var failLetter = document.createElement("div");
 				failLetter.textContent = event.key;
