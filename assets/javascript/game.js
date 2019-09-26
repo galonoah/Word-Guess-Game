@@ -9,9 +9,13 @@ var wordList = [
 	"planets",
 	"rocket"
 ];
+var currentWord = document.getElementById("currentWord");
+var userGuessLetters = document.getElementById("userGuessLetters");
+var numberOfGuesses = document.getElementById("numberOfGuesses");
 var usedWords = [];
+var guessesCounter = 12;
 
-// Function will return random word from wordList array
+//Function will return random word from wordList array
 // and prevent repeating words to be return
 function randomWord() {
 	var getRandomWord = "";
@@ -27,7 +31,7 @@ function randomWord() {
 // Loop will run as many times as the guessWord length and each time
 // will create a Div element with an underscore character and then
 // append it to the HTML tag with id = currentWord
-function createLowLines (guessWord) {
+function createLowLines(guessWord) {
 	for (var i = 0; i < guessWord.length; i++) {
 		var lowLine = document.createElement("div");
 		lowLine.textContent = "_";
@@ -35,51 +39,55 @@ function createLowLines (guessWord) {
 	}
 }
 
+// First condition checks A-Z keypress characters only
+// Second condition checks if key press letter is contain in the guess word
+// Third condition checks the key press letter position
+// If first condition fails, letter is append it to userGuessedLetters
+function checkLetters(guessWord, letter, correctWord) {
+	var underscoreCharacter = document.querySelectorAll("#currentWord div");
+
+	if (event.keyCode >= 65 && event.keyCode <= 90) {
+		if (guessWord.includes(letter)) {
+			for (let i = 0; i < guessWord.length; i++) {
+				if (guessWord[i] == letter) {
+					//Replace underscore character with letter
+					underscoreCharacter[i].textContent = letter;
+					//store letter to array for comparison with guessWord
+					correctWord[i] = letter;
+				}
+			}
+		} else {
+			var failLetter = document.createElement("div");
+			failLetter.textContent = event.key;
+			userGuessLetters.appendChild(failLetter);
+			guessesCounter--;
+			numberOfGuesses.textContent = guessesCounter;
+		}
+	}
+}
+
 function startGame() {
 	var guessWord = randomWord();
-	console.log(guessWord);
-	var currentWord = document.getElementById("currentWord");
-	currentWord.innerHTML = ""; //Removes previous guess word
-
-	createLowLines(guessWord);
-
-	var underscoreCharacter = document.querySelectorAll("#currentWord div");
-	var userGuessLetters = document.getElementById("userGuessLetters");
-	var numberOfGuesses = document.getElementById("numberOfGuesses");
-	var guessesCounter = 12;
 	var correctWord = [];
+	guessesCounter = 12;
+
+	//Removes previous guess word
+	currentWord.innerHTML = "";
+
+	//Create underscore lines
+	createLowLines(guessWord);
 
 	document.onkeyup = function(event) {
 		var letter = event.key;
 
-		// First condition checks A-Z keypress characters only
-		// Second condition checks if key press letter is contain in the guess word
-		// Third condition checks the key press letter position
-		// If first condition fails, letter is append it to userGuessedLetters
-		if (event.keyCode >= 65 && event.keyCode <= 90) {
-			if (guessWord.includes(letter)) {
-				for (let i = 0; i < guessWord.length; i++) {
-					if (guessWord[i] == letter) {
-						underscoreCharacter[i].textContent = letter;
-
-						//store letters to array for comparison with guessWord
-						correctWord[i] = letter;
-					}
-				}
-			} else {
-				var failLetter = document.createElement("div");
-				failLetter.textContent = event.key;
-				userGuessLetters.appendChild(failLetter);
-				guessesCounter--;
-				numberOfGuesses.textContent = guessesCounter;
-			}
-		}
+		//Function checks if key press is in guessWord
+		checkLetters(guessWord, letter, correctWord);
 
 		if (correctWord.join("") == guessWord) {
 			console.log("You Win"); //Temp console message
 			userGuessLetters.innerHTML = "";
 
-			//Add transition effect
+			//Add class to body for image transition effect
 			document.body.classList.add("transitionBackground");
 
 			//Change background image based on the guessWord
