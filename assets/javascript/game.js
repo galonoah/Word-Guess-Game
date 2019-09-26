@@ -12,8 +12,12 @@ var wordList = [
 var currentWord = document.getElementById("currentWord");
 var userGuessLetters = document.getElementById("userGuessLetters");
 var numberOfGuesses = document.getElementById("numberOfGuesses");
+var winsCounter = document.getElementById("winsCounter");
+var losesCounter = document.getElementById("losesCounter");
 var usedWords = [];
 var guessesCounter = 12;
+var wins = 0;
+var loses = 0;
 
 //Function will return random word from wordList array
 // and prevent repeating words to be return
@@ -70,7 +74,6 @@ function checkLetters(guessWord, character, correctWord) {
 //If guess word is correct, background image changes
 //If remaining guesses total is zero, the game restarts
 function checkCorrectWord(guessWord, correctWord) {
-
 	if (correctWord.join("") == guessWord) {
 		userGuessLetters.innerHTML = "";
 
@@ -85,12 +88,14 @@ function checkCorrectWord(guessWord, correctWord) {
 		document.body.style.backgroundSize = "cover";
 
 		numberOfGuesses.innerHTML = "12";
+		winsCounter.textContent = ++wins;
 		startGame();
 	}
 
 	if (guessesCounter == 0) {
 		numberOfGuesses.innerHTML = "12";
 		userGuessLetters.innerHTML = "";
+		losesCounter.textContent = ++loses;
 		startGame();
 	}
 }
