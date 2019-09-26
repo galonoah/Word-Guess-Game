@@ -40,20 +40,20 @@ function createLowLines(guessWord) {
 }
 
 // First condition checks A-Z keypress characters only
-// Second condition checks if key press letter is contain in the guess word
-// Third condition checks the key press letter position
-// If first condition fails, letter is append it to userGuessedLetters
-function checkLetters(guessWord, letter, correctWord) {
+// Second condition checks if key press character is contain in the guess word
+// Third condition checks the key press character position
+// If first condition fails, character is append it to userGuessedLetters
+function checkLetters(guessWord, character, correctWord) {
 	var underscoreCharacter = document.querySelectorAll("#currentWord div");
 
 	if (event.keyCode >= 65 && event.keyCode <= 90) {
-		if (guessWord.includes(letter)) {
+		if (guessWord.includes(character)) {
 			for (let i = 0; i < guessWord.length; i++) {
-				if (guessWord[i] == letter) {
-					//Replace underscore character with letter
-					underscoreCharacter[i].textContent = letter;
-					//store letter to array for comparison with guessWord
-					correctWord[i] = letter;
+				if (guessWord[i] == character) {
+					//Replace underscore character with character
+					underscoreCharacter[i].textContent = character;
+					//store character to array for comparison with guessWord
+					correctWord[i] = character;
 				}
 			}
 		} else {
@@ -63,6 +63,35 @@ function checkLetters(guessWord, letter, correctWord) {
 			guessesCounter--;
 			numberOfGuesses.textContent = guessesCounter;
 		}
+	}
+}
+
+//Function checks if Guess Word is correct
+//If guess word is correct, background image changes
+//If remaining guesses total is zero, the game restarts
+function checkCorrectWord(guessWord, correctWord) {
+
+	if (correctWord.join("") == guessWord) {
+		userGuessLetters.innerHTML = "";
+
+		//Add class to body for image transition effect
+		document.body.classList.add("transitionBackground");
+
+		//Change background image based on the guessWord
+		document.body.style.background =
+			"url('./assets/images/" +
+			guessWord +
+			".jpg') #1d1f20 no-repeat center center fixed";
+		document.body.style.backgroundSize = "cover";
+
+		numberOfGuesses.innerHTML = "12";
+		startGame();
+	}
+
+	if (guessesCounter == 0) {
+		numberOfGuesses.innerHTML = "12";
+		userGuessLetters.innerHTML = "";
+		startGame();
 	}
 }
 
@@ -78,34 +107,13 @@ function startGame() {
 	createLowLines(guessWord);
 
 	document.onkeyup = function(event) {
-		var letter = event.key;
+		var character = event.key;
 
-		//Function checks if key press is in guessWord
-		checkLetters(guessWord, letter, correctWord);
+		//Function checks if key press is in Guess Word
+		checkLetters(guessWord, character, correctWord);
 
-		if (correctWord.join("") == guessWord) {
-			console.log("You Win"); //Temp console message
-			userGuessLetters.innerHTML = "";
-
-			//Add class to body for image transition effect
-			document.body.classList.add("transitionBackground");
-
-			//Change background image based on the guessWord
-			document.body.style.background =
-				"url('./assets/images/" +
-				guessWord +
-				".jpg') #1d1f20 no-repeat center center fixed";
-			document.body.style.backgroundSize = "cover";
-
-			startGame();
-		}
-
-		if (guessesCounter == 0) {
-			console.log("You Lose. The guess word is: " + guessWord); //Temp console message
-			numberOfGuesses.innerHTML = "12";
-			userGuessLetters.innerHTML = "";
-			startGame();
-		}
+		//Function checks for correct Guess Word and remaining guesses
+		checkCorrectWord(guessWord, correctWord);
 	};
 }
 
