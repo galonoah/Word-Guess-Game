@@ -100,14 +100,14 @@ function checkCorrectWord(guessWord, correctWord) {
 
 		numberOfGuesses.innerHTML = "12";
 		winsCounter.textContent = ++wins;
-		startGame();
+		restartGame();
 	}
 
 	if (guessesCounter == 0) {
 		numberOfGuesses.innerHTML = "12";
 		userGuessLetters.innerHTML = "";
 		losesCounter.textContent = ++loses;
-		startGame();
+		restartGame();
 	}
 }
 
@@ -133,4 +133,10 @@ function startGame() {
 	};
 }
 
-startGame();
+function restartGame() {
+	document.onkeyup = function(){
+		startGame();
+	}
+}
+
+restartGame();
