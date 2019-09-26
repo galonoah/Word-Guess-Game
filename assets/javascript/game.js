@@ -1,7 +1,8 @@
-var wordList = ["Earth", "Galaxy", "Jupiter", "Mars"];
+var wordList = ["Earth", "Galaxy", "Jupiter", "Mars", "astronaut", "comet", "moon", "planets", "rocket"];
 var usedWords = [];
 
 // Function will return random word from wordList array
+// and prevent repeating words to be return
 function randomWord() {
 	var getRandomWord = "";
 	do {
@@ -46,7 +47,9 @@ function startGame() {
 				for (let i = 0; i < guessWord.length; i++) {
 					if (guessWord[i] == letter) {
 						underscoreCharacter[i].textContent = letter;
-						correctWord[i] = letter; //store letters to array for comparison with guessWord
+
+						//store letters to array for comparison with guessWord
+						correctWord[i] = letter; 
 					}
 				}
 			} else {
@@ -61,6 +64,11 @@ function startGame() {
 		if (correctWord.join("") == guessWord) {
 			console.log("You Win"); //Temp console message
 			userGuessLetters.innerHTML = "";
+
+			//Change background image based on the guessWord
+			document.body.style.background = "url('./assets/images/" + guessWord + ".jpg') #1d1f20 no-repeat center center fixed"; 
+			document.body.style.backgroundSize = "cover";
+
 			startGame();
 		}
 
