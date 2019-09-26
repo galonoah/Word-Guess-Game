@@ -15,6 +15,7 @@ var numberOfGuesses = document.getElementById("numberOfGuesses");
 var winsCounter = document.getElementById("winsCounter");
 var losesCounter = document.getElementById("losesCounter");
 var usedWords = [];
+var usedCharacters = "";
 var guessesCounter = 12;
 var wins = 0;
 var loses = 0;
@@ -54,18 +55,21 @@ function checkLetters(guessWord, character, correctWord) {
 		if (guessWord.includes(character)) {
 			for (let i = 0; i < guessWord.length; i++) {
 				if (guessWord[i] == character) {
-					//Replace underscore character with character
+					//Replace underscore character with key press letter
 					underscoreCharacter[i].textContent = character;
-					//store character to array for comparison with guessWord
+					//store keypress letter to array for comparison with guessWord
 					correctWord[i] = character;
 				}
 			}
 		} else {
-			var failLetter = document.createElement("div");
-			failLetter.textContent = event.key;
-			userGuessLetters.appendChild(failLetter);
-			guessesCounter--;
-			numberOfGuesses.textContent = guessesCounter;
+			if (!usedCharacters.includes(character)) {
+				var failLetter = document.createElement("div");
+				failLetter.textContent = event.key;
+				usedCharacters += character;
+				userGuessLetters.appendChild(failLetter);
+				guessesCounter--;
+				numberOfGuesses.textContent = guessesCounter;
+			}
 		}
 	}
 }

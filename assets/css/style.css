@@ -74,6 +74,7 @@ body {
 	width: 100%;
 	margin-top: 5px;
 	color: cyan;
+	height: 32px;
 }
 
 #currentWord > *,
