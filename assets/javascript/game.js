@@ -93,22 +93,25 @@ function checkCorrectWord(guessWord, correctWord) {
 
 		//Change background image based on the guessWord
 		document.body.style.background =
-			"url('./assets/images/" +
+			"url('assets/images/" +
 			guessWord +
 			".jpg') #1d1f20 no-repeat center center fixed";
 		document.body.style.backgroundSize = "cover";
 
 		numberOfGuesses.innerHTML = "12";
+		usedCharacters = "";
 		winsCounter.textContent = ++wins;
 		restartGame();
 	}
 
 	if (guessesCounter == 0) {
 		numberOfGuesses.innerHTML = "12";
+		usedCharacters = "";
 		userGuessLetters.innerHTML = "";
 		losesCounter.textContent = ++loses;
 		for (var i = 0; i < guessWord.length; i++) {
-			document.querySelectorAll("#currentWord div")[i].textContent = guessWord[i];
+			document.querySelectorAll("#currentWord div")[i].textContent =
+				guessWord[i];
 		}
 		restartGame();
 	}
