@@ -1,3 +1,6 @@
+import "./reset.css";
+import "./style.css";
+
 var wordList = [
   "Earth",
   "Galaxy",

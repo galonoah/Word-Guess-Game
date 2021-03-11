@@ -4,7 +4,7 @@ body {
 	color: #fff;
 	width: 100%;
 	text-align: center;
-	background: url("../images/space-background.jpg"),
+	background: url("./images/space-background.jpg"),
 		#1d1f20 no-repeat center center fixed;
 	background-size: cover;
 	overflow: hidden;
