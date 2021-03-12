@@ -1,19 +1,22 @@
-const path = require("path");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const path = require("path");
 
 module.exports = {
   mode: "production",
-  plugins: [
-    new MiniCssExtractPlugin(),
-    new CopyPlugin({
-      patterns: [
-        { from: "src/images", to: "assets/images" },
-        { from: "src/sounds", to: "assets/sounds" },
-      ],
-    }),
-  ],
   entry: "./src/index.ts",
+  output: {
+    filename: "[name].[contenthash:10].js",
+    path: path.resolve(__dirname, "dist"),
+    assetModuleFilename: "assets/images/[hash:5][ext][query]",
+    clean: true,
+  },
+  resolve: {
+    extensions: [".ts", ".js"],
+  },
   module: {
     rules: [
       {
@@ -26,24 +29,32 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        use: [
-          {
-            loader: "url-loader",
-            options: {
-              mimetype: "image/jpg",
-            },
-          },
-        ],
+        test: /\.(jpg)$/i,
+        type: "asset/resource",
       },
     ],
   },
-  resolve: {
-    extensions: [".ts", ".js"],
-  },
-  output: {
-    filename: "index.js",
-    path: path.resolve(__dirname, "dist"),
-    publicPath: "/Word-Guess-Game/",
+  plugins: [
+    new MiniCssExtractPlugin({ filename: "[name].[contenthash:10].css" }),
+    new CopyPlugin({
+      patterns: [
+        { from: "src/images", to: "assets/images" },
+        { from: "src/sounds", to: "assets/sounds" },
+      ],
+    }),
+  ],
+  optimization: {
+    minimizer: [
+      new TerserPlugin(),
+      new HtmlWebpackPlugin({
+        template: "./src/index.html",
+        minify: {
+          removeAttributeQuotes: true,
+          collapseWhitespace: true,
+          removeComments: true,
+        },
+      }),
+      new CssMinimizerPlugin(),
+    ],
   },
 };
